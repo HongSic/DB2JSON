@@ -1,0 +1,45 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>바코드 등록하기</title>
+</head>
+
+<script language="javascript">
+	function goQuery() {document.location.href =  "barcode_query.jsp";}
+</script>
+
+<body>
+
+    <form action="JSP/barcode_insert.jsp" method="GET" name="f_form" target="new">
+        <table>
+            <tr><td>바코드</td><td><input name="b_barnum" type="text" maxlength="100" /></td></tr>
+            <tr><td>상품</td>
+                <td><input name="b_isstore" type="radio" value="0" checked>입고</input>
+                    <input name="b_isstore" type="radio" value="1">출고</input></td></tr>
+            <tr><td>부서 &nbsp</td>
+                <td><select name="b_deptname" >
+                     <option value="개발팀">개발팀</option>
+                     <option value="생산팀">생산팀</option>
+                     <option value="영업팀">영업팀</option>
+                     <option value="회계팀">회계팀</option>
+                     <option value="연구팀">연구팀</option>
+                </select></td></tr>
+            <tr><td>공정 &nbsp</td>
+                <td><select name="b_procname" >
+                     <option value="제작공정">제작공정</option>
+                     <option value="미세공정">미세공정</option>
+                     <option value="마감공정">마감공정</option>
+                     <option value="마무리공정">마무리공정</option>
+                     <option value="내부공정">내부공정</option>
+                </select></td></tr>
+            <tr><td>카드수량</td><td><input name="b_numcard" type="text" maxlength="20" value="1"/></td></tr>
+            <tr><td>작업매수</td><td><input name="b_numcount" type="text" maxlength="20" value="1"/></td></tr>
+            <tr><td>메모</td><td><input name="b_memo" type="text" maxlength="4000" value="(메모 없음)"/></td></tr>
+        </table>
+
+        <br/>
+        <input name="" type="submit" value="등록" />
+        <input type="button" value="조회"  onclick="javascript:goQuery();"/>
+    </form>
+</body>
+</html>

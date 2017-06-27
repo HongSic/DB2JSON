@@ -1,0 +1,9 @@
+﻿//기본 BARCODE 테이블 불러오기
+barcode_query.jsp
+//추가매개변수(TimeStamp 오름차순 정렬)
+barcode_query.jsp?dbparam=order%20by%20TIMESTAMP%20asc
+
+//테이블이름(PRODUCT)
+barcode_query.jsp?tablename=PRODUCT
+//테이블이름(PRODUCT)+추가매개변수(오름차순 정렬)
+barcode_query.jsp?tablename=BARCODE&dbparam=order%20by%20PCODE%20asc
