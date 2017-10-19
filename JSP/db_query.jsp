@@ -4,10 +4,10 @@
 	request.setCharacterEncoding("UTF-8"); 
 	
 	String DRIVER = "oracle.jdbc.driver.OracleDriver";
-	String URL_Internal = "jdbc:oracle:thin:@172.16.61.190:1521:KOPO";
-	String URL_External = "jdbc:oracle:thin:@112.76.42.173:1521:KOPO";
-	String USER = "stu1634";//jysong
-	String PASSWORD = "stu1634";//sjy1001
+	String URL_Internal = "jdbc:oracle:thin:@(DB IP Address):(Port)";
+	String URL_External = "jdbc:oracle:thin:@(DB IP Address):(Port)";
+	String USER = ""
+	String PASSWORD = "";
 	
 	Connection conn= null; //db서버에 접속해주는 클래스
 	PreparedStatement pstmt = null;//쿼리문을 실행해주는 객체
