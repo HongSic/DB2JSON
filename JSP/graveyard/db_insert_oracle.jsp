@@ -39,8 +39,7 @@
 	*/
 
 	String DRIVER = "oracle.jdbc.driver.OracleDriver";
-	String URL_Internal = "jdbc:oracle:thin:@(DB IP Address):(Port)";
-	String URL_External = "jdbc:oracle:thin:@(DB IP Address):(Port)";
+	String URL = "jdbc:oracle:thin:@(DB IP Address):(Port)";
 	String USER = ""
 	String PASSWORD = "";
 

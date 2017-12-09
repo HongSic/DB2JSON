@@ -3,11 +3,10 @@
 <% 
 	request.setCharacterEncoding("UTF-8"); 
 	
-	String DRIVER = "oracle.jdbc.driver.OracleDriver";
-	String URL_Internal = "jdbc:oracle:thin:@(DB IP Address):(Port)";
-	String URL_External = "jdbc:oracle:thin:@(DB IP Address):(Port)";
-	String USER = ""
+	String DBNAME="";
+	String USER = "";
 	String PASSWORD = "";
+	String URL = "localhost:1433";
 	
 	Connection conn= null; //db서버에 접속해주는 클래스
 	PreparedStatement pstmt = null;//쿼리문을 실행해주는 객체
@@ -15,8 +14,8 @@
 	{
 		ResultSet rs = null;
 		
-		Class.forName(DRIVER);//.newInstance();
-		conn = DriverManager.getConnection(URL_External, USER, PASSWORD);
+		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");//.newInstance();
+		conn = DriverManager.getConnection("jdbc:sqlserver://" + URL + ";databaseName="+DBNAME+";user="+USER+";password="+PASSWORD);
 
 		//만약 여기서부터 자바파일이면 따로 메서드화 하기. [String getDBtoJSON (Connection con, String TableName){...}])
 		String TableName = request.getParameter("tablename");
@@ -25,9 +24,9 @@
 		
 		String SQL_ADDITIONAL = (DBParam==null || DBParam.isEmpty() || DBParam.equals(" ") )?"":DBParam;
 		String SQL_TABLE_NAME = (TableName==null || TableName.isEmpty() || TableName.equals(" ") )?"BARCODE":TableName.toUpperCase();
-		String SQL_COUNT_COLUMN = "select count(*) from user_tab_columns where table_name = '"+SQL_TABLE_NAME+"'";
+		String SQL_COUNT_COLUMN = "select count(*) from INFORMATION_SCHEMA.Columns where table_name = '"+SQL_TABLE_NAME+"'";
 		String SQL_COUNT_ITEM = "select count(*) from "+SQL_TABLE_NAME+" "+SQL_ADDITIONAL;
-		String SQL_COLUMN = "select column_name from user_tab_columns where table_name = '"+SQL_TABLE_NAME+"'";
+		String SQL_COLUMN = "select column_name from INFORMATION_SCHEMA.Columns where table_name = '"+SQL_TABLE_NAME+"'";
 		String SQL_ITEM = "select * from "+SQL_TABLE_NAME+" "+SQL_ADDITIONAL; //+" order by TIMESTAMP asc";
 
         String[] nameArray = null;
@@ -75,13 +74,16 @@
 		for (int i = 0; i < nameArray.length; i++) 
 		{
 			if(i > 0)sb.append(",");
-			sb.append("{\"name\":\""+ nameArray[i] +"\",\"values\":[");
+			sb.append("{\"name\":\""+
+				nameArray[i].replace("\\", "\\\\").replace("\r", "\\r").replace("\n", "\\n").replace("\"", "\\\"")+
+				"\",\"values\":[");
 			
 			for(int j = 0; j < tableArray[i].length; j++)
 			{
 				if(tableArray[i].length > 0)
     			{
-					String b = tableArray[i][j];
+					String b = tableArray[i][j] == null ? null :
+							tableArray[i][j].replace("\\", "\\\\").replace("\r", "\\r").replace("\n", "\\n").replace("\"", "\\\"");
 					if(j == 0)sb.append(b == null?"null":"\""+b+"\"");
 					else sb.append(b == null?",null":",\""+b+"\"");
     			}
