@@ -1,0 +1,4 @@
+﻿//테이블이름(PRODUCT)
+db_query_*.jsp?tablename=PRODUCT
+//테이블이름(PRODUCT)+추가매개변수(오름차순 정렬)
+db_query_*.jsp?tablename=PRODUCT&dbparam=order%20by%20PCODE%20asc
