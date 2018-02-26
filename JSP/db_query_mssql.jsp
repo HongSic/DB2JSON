@@ -3,10 +3,11 @@
 <% 
 	request.setCharacterEncoding("UTF-8"); 
 	
-	String DBNAME="";
+	String DBNAME="DB_NAME";
+	String URL = "127.0.0.1:1433"
 	String USER = "";
 	String PASSWORD = "";
-	String URL = "localhost:1433";
+	String DEFAULT_TABLE_NAME="DEFAULT_TABLE_NAME";
 	
 	Connection conn= null; //db서버에 접속해주는 클래스
 	PreparedStatement pstmt = null;//쿼리문을 실행해주는 객체
@@ -23,7 +24,7 @@
 		String DBParamFull = request.getParameter("dbparamfull");
 		
 		String SQL_ADDITIONAL = (DBParam==null || DBParam.isEmpty() || DBParam.equals(" ") )?"":DBParam;
-		String SQL_TABLE_NAME = (TableName==null || TableName.isEmpty() || TableName.equals(" ") )?"BARCODE":TableName.toUpperCase();
+		String SQL_TABLE_NAME = (TableName==null || TableName.isEmpty() || TableName.equals(" ") )?DEFAULT_TABLE_NAME:TableName.toUpperCase();
 		String SQL_COUNT_COLUMN = "select count(*) from INFORMATION_SCHEMA.Columns where table_name = '"+SQL_TABLE_NAME+"'";
 		String SQL_COUNT_ITEM = "select count(*) from "+SQL_TABLE_NAME+" "+SQL_ADDITIONAL;
 		String SQL_COLUMN = "select column_name from INFORMATION_SCHEMA.Columns where table_name = '"+SQL_TABLE_NAME+"'";
