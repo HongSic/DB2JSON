@@ -1,11 +1,13 @@
 <%@ page contentType="text/html; charset=utf-8"  language="java"  
 	import="java.sql.*, java.util.*, java.io.*, java.lang.*" errorPage="" %>
 <% 
-	request.setCharacterEncoding("UTF-8"); 
-	
-	String URL = "localhost:1521";
-	String USER = "admin"
-	String PASSWORD = "password";
+	request.setCharacterEncoding("UTF-8");
+
+	String DBNAME="DB_NAME";
+	String URL = "127.0.0.1:3306"
+	String USER = "root";
+	String PASSWORD = "";
+	String DEFAULT_TABLE_NAME="DEFAULT_TABLE_NAME";
 	
 	Connection conn= null; //db서버에 접속해주는 클래스
 	PreparedStatement pstmt = null;//쿼리문을 실행해주는 객체
@@ -13,8 +15,8 @@
 	{
 		ResultSet rs = null;
 		
-		Class.forName("oracle.jdbc.driver.OracleDriver");//.newInstance();
-		conn = DriverManager.getConnection("jdbc:oracle:thin:"+URL_External, USER, PASSWORD);
+		Class.forName("com.mysql.jdbc.Driver");//.newInstance();
+		conn = DriverManager.getConnection("jdbc:mysql://"+URL+"/"+DBNAME, USER, PASSWORD);
 
 		//만약 여기서부터 자바파일이면 따로 메서드화 하기. [String getDBtoJSON (Connection con, String TableName){...}])
 		String TableName = request.getParameter("tablename");
@@ -22,10 +24,10 @@
 		String DBParamFull = request.getParameter("dbparamfull");
 		
 		String SQL_ADDITIONAL = (DBParam==null || DBParam.isEmpty() || DBParam.equals(" ") )?"":DBParam;
-		String SQL_TABLE_NAME = (TableName==null || TableName.isEmpty() || TableName.equals(" ") )?"DEFAULT_TABLE_NAME":TableName.toUpperCase();
-		String SQL_COUNT_COLUMN = "select count(*) from user_tab_columns where table_name = '"+SQL_TABLE_NAME+"'";
+		String SQL_TABLE_NAME = (TableName==null || TableName.isEmpty() || TableName.equals(" ") )?DEFAULT_TABLE_NAME:TableName.toUpperCase();
+		String SQL_COUNT_COLUMN = "select COUNT(*) from information_schema.COLUMNS where table_name='"+SQL_TABLE_NAME+"'";
 		String SQL_COUNT_ITEM = "select count(*) from "+SQL_TABLE_NAME+" "+SQL_ADDITIONAL;
-		String SQL_COLUMN = "select column_name from user_tab_columns where table_name = '"+SQL_TABLE_NAME+"'";
+		String SQL_COLUMN = "select column_name from information_schema.COLUMNS where table_name = '"+SQL_TABLE_NAME+"'";
 		String SQL_ITEM = "select * from "+SQL_TABLE_NAME+" "+SQL_ADDITIONAL; //+" order by TIMESTAMP asc";
 
         String[] nameArray = null;
