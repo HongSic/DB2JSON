@@ -2,3 +2,8 @@
 db_query_*.jsp?tablename=PRODUCT
 //테이블이름(PRODUCT)+추가매개변수(오름차순 정렬)
 db_query_*.jsp?tablename=PRODUCT&dbparam=order%20by%20PCODE%20asc
+
+/*
+만약 Class,forName(...); 에서 java.lang.NoClassDefFoundError: javax/xml/bind/DatatypeConverter
+오류가 난다면 자바 실행옵션에 --add-modules java.xml.bind 추가하기
+*/

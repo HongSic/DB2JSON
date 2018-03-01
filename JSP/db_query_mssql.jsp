@@ -15,7 +15,7 @@
 	{
 		ResultSet rs = null;
 		
-		//Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");//.newInstance();
+		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");//.newInstance();
 		conn = DriverManager.getConnection("jdbc:sqlserver://" + URL + ";databaseName="+DBNAME+";user="+USER+";password="+PASSWORD);
 
 		//만약 여기서부터 자바파일이면 따로 메서드화 하기. [String getDBtoJSON (Connection con, String TableName){...}])
