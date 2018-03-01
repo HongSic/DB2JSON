@@ -4,7 +4,7 @@
 	request.setCharacterEncoding("UTF-8"); 
 	
 	String DBNAME="DB_NAME";
-	String URL = "127.0.0.1:1433"
+	String URL = "127.0.0.1:1433";
 	String USER = "";
 	String PASSWORD = "";
 	String DEFAULT_TABLE_NAME="DEFAULT_TABLE_NAME";
@@ -15,7 +15,7 @@
 	{
 		ResultSet rs = null;
 		
-		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");//.newInstance();
+		//Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");//.newInstance();
 		conn = DriverManager.getConnection("jdbc:sqlserver://" + URL + ";databaseName="+DBNAME+";user="+USER+";password="+PASSWORD);
 
 		//만약 여기서부터 자바파일이면 따로 메서드화 하기. [String getDBtoJSON (Connection con, String TableName){...}])
