@@ -1,10 +1,26 @@
 ﻿db_query_*.jsp?dbname=STORE
-//데이터베이스(DB) 이름(STORE)
+//KOR: 데이터베이스이름(STORE)
+//ENG: Database Name(STORE)
+
 db_query_*.jsp?tablename=PRODUCT
-//테이블이름(PRODUCT)+추가매개변수(오름차순 정렬)
+//KOR: 테이블이름(PRODUCT)+추가매개변수(오름차순 정렬)
+//ENG: Table Name(PRODUCT)+Add Parameter(Ascending order)
+
+//KOR: 테이블이름(PRODUCT)+추가매개변수(오름차순 정렬)
+//ENG: Table Name(PRODUCT)+Add Parameter(Ascending order)
 db_query_*.jsp?tablename=PRODUCT&dbparam=order%20by%20PCODE%20asc
 
+//KOR: 데이터베이스이름(STORE)+테이블이름(PRODUCT)+추가매개변수(오름차순 정렬)
+//ENG: Database Name(STORE)+Table Name(PRODUCT)+Add Parameter(Ascending order)
+db_query_*.jsp?dbname=STORE&tablename=PRODUCT&dbparam=order%20by%20PCODE%20asc
+
+
 /*
-만약 Class,forName(...); 에서 java.lang.NoClassDefFoundError: javax/xml/bind/DatatypeConverter
-오류가 난다면 자바 실행옵션에 --add-modules java.xml.bind 추가하기
+만약 Class,forName(...); 에서 
+java.lang.NoClassDefFoundError: javax/xml/bind/DatatypeConverter 오류가 난다면
+자바 실행옵션에 --add-modules java.xml.bind 추가하기
+
+If "Class, forName (...);" in
+"java.lang.NoClassDefFoundError: javax / xml / bind / DatatypeConverter" If you get an error
+Adding "--add-modules java.xml.bind" to the Java run options
 */
