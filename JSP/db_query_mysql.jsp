@@ -102,14 +102,17 @@
 	}
 	catch(SQLException ex)
 	{
-		String JSONmsg = "{\"status\":\"fail\",\"message\":\"데이터베이스 문제로 조회에 실패하였습니다.\",\"exception\":\""+ex.getMessage()+"\",\"sqlcode\":"+ex.getErrorCode()+"}";
+		String JSONmsg = "{\"status\":\"fail\",\"message\":\"데이터베이스 문제로 조회에 실패하였습니다.\",\"exception\":\""+
+				ex.getMessage().replace("\\", "\\\\").replace("\r", "\\r").replace("\n", "\\n").replace("\"", "\\\"")+
+				"\",\"sqlcode\":"+ex.getErrorCode()+"}";
 		PrintWriter pw = response.getWriter();
 		pw.write(JSONmsg);
 		//response.sendError(ex.getErrorCode(), ex.getMessage());
 	}
 	catch(Exception ex)
 	{
-		String JSONmsg = "{\"status\":\"fail\",\"message\":\"알 수 없는 오류로 조회에 실패하였습니다.\",\"exception\":\""+ex.getMessage()+"\"}";
+		String JSONmsg = "{\"status\":\"fail\",\"message\":\"알 수 없는 오류로 조회에 실패하였습니다.\",\"exception\":\""+
+				ex.getMessage().replace("\\", "\\\\").replace("\r", "\\r").replace("\n", "\\n").replace("\"", "\\\"")+"\"}";
 		PrintWriter pw = response.getWriter();
 		pw.write(JSONmsg);
 		//response.sendError(ex.getErrorCode(), ex.getMessage());
