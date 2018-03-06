@@ -4,11 +4,11 @@
 	request.setCharacterEncoding("UTF-8");
 
 	String DBNAME="DB_NAME";
-	String URL = "127.0.0.1:3306"
+	String URL = "127.0.0.1:3306";
 	String USER = "root";
 	String PASSWORD = "";
 	String DEFAULT_TABLE_NAME="DEFAULT_TABLE_NAME";
-	
+
 	Connection conn= null; //db서버에 접속해주는 클래스
 	PreparedStatement pstmt = null;//쿼리문을 실행해주는 객체
 	try
@@ -16,9 +16,12 @@
 		ResultSet rs = null;
 		
 		Class.forName("com.mysql.jdbc.Driver");//.newInstance();
-		conn = DriverManager.getConnection("jdbc:mysql://"+URL+"/"+DBNAME, USER, PASSWORD);
 
 		//만약 여기서부터 자바파일이면 따로 메서드화 하기. [String getDBtoJSON (Connection con, String TableName){...}])
+		String DBName = request.getParameter("dbname");
+		if(DBName==null || DBName.isEmpty())DBName = DBNAME;
+		conn = DriverManager.getConnection("jdbc:mysql://"+URL+"/"+DBName, USER, PASSWORD);
+
 		String TableName = request.getParameter("tablename");
 		String DBParam = request.getParameter("dbparam");
 		String DBParamFull = request.getParameter("dbparamfull");
@@ -99,17 +102,16 @@
 	}
 	catch(SQLException ex)
 	{
-		String JSONMmsg = "{\"status\":\"fail\",\"message\":\"데이터베이스 문제로 조회에 실패하였습니다.\",\"exception\":\""+ex.getMessage()+"\",\"sqlcode\":"+ex.getErrorCode()+"}";
-		
+		String JSONmsg = "{\"status\":\"fail\",\"message\":\"데이터베이스 문제로 조회에 실패하였습니다.\",\"exception\":\""+ex.getMessage()+"\",\"sqlcode\":"+ex.getErrorCode()+"}";
 		PrintWriter pw = response.getWriter();
-		pw.write(JSONMmsg);
+		pw.write(JSONmsg);
 		//response.sendError(ex.getErrorCode(), ex.getMessage());
 	}
 	catch(Exception ex)
 	{
-		String JSONMmsg = "{\"status\":\"fail\",\"message\":\"알 수 없는 오류로 조회에 실패하였습니다.\",\"exception\":\""+ex.getMessage()+"\"}";
+		String JSONmsg = "{\"status\":\"fail\",\"message\":\"알 수 없는 오류로 조회에 실패하였습니다.\",\"exception\":\""+ex.getMessage()+"\"}";
 		PrintWriter pw = response.getWriter();
-		pw.write(JSONMmsg);
+		pw.write(JSONmsg);
 		//response.sendError(ex.getErrorCode(), ex.getMessage());
 	}
 	finally
@@ -117,5 +119,4 @@
 		try{conn.close();}catch(Exception ex){}
 		try{pstmt.close();}catch(Exception ex){}
 	}
-	
 %>
